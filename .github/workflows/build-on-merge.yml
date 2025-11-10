@@ -9,8 +9,11 @@ on:
 jobs:
   build:
     # Only run if PR was merged (not just closed) and has the "Build" label
-    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'Build')
-
+    if: > 
+      (
+        github.event.pull_request.merged == true 
+        && contains(github.event.pull_request.labels.*.name, 'Build')
+      ) || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
