@@ -1,0 +1,36 @@
+name: Build on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  build:
+    # Only run if PR was merged (not just closed) and has the "Build" label
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'Build')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Print PR info
+        run: |
+          echo "PR #${{ github.event.pull_request.number }} was merged!"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "Merged by: ${{ github.event.pull_request.merged_by.login }}"
+          echo "Labels: ${{ join(github.event.pull_request.labels.*.name, ', ') }}"
+
+      - name: Run build
+        run: |
+          echo "Running build triggered by PR merge with 'Build' label..."
+          # Add your actual build commands here
+          # For example:
+          # npm install
+          # npm run build
+          # or
+          # make build
+          # etc.
