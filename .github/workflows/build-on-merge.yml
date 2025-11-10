@@ -5,7 +5,8 @@ on:
     types: [closed]
     branches:
       - master
-
+  # Run manually.
+  workflow_dispatch:      
 jobs:
   build:
     # Only run if PR was merged (not just closed) and has the "Build" label
